@@ -13,7 +13,7 @@ const crearUser = asyncHandler(async(req, res) =>  {
         throw new Error("Faltan datos")
     }
 
-    const userExiste = await UserActivation.findOne({email})
+    const userExiste = await User.findOne({email})
     if(userExiste){
         res.status(400)
         throw new Error ("Usuario ya existente")
@@ -67,7 +67,7 @@ const loginUser = asyncHandler(async(req, res) =>  {
 })
 
 const datosUser = asyncHandler(async(req, res) =>  {
-    res.status(200).json({message: "Datos"})
+    res.status(200).json(req.user)
 })
 
 const generarToken = (id_usuario) => {

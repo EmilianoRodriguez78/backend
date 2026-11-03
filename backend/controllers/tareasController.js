@@ -2,17 +2,18 @@ const asyncHandler = require('express-async-handler')
 const Tarea = require('../models/tareasModel')
 
 const getTareas = asyncHandler (async (req, res) => {
-    const tareas = await Tarea.find({user:req.user,id})
-    res.status(200).json({mesg:"getTareas"})
+    const tareas = await Tarea.find({user:req.user.id})
+    res.status(200).json(tareas)
 })
 
 const createTareas = asyncHandler (async (req, res) => {
-    if (!req.body.descrpition){
+    if (!req.body.descrpicion){
         res.status(400)
         throw new Error("Debes teclear una descripcion")
 
     }
     const tarea = await Tarea.create({
+        user:req.user.id,
         descripcion: req.body.descrpicion
     })
 
@@ -45,10 +46,14 @@ const deleteTarea = asyncHandler (async (req, res) => {
         res.status(404)
         throw new Error("La tarea especificada no exista")
     }
-
-    await Tarea.deleteOne(tarea)
-
-    res.status(200).json({id:req.params.id})
+    
+    if (tarea.user.toString() !== req.user.id) {
+        res.status(401)
+        throw new Error("Acceso no autorizado")
+    } else {
+        await Tarea.deleteOne(tarea)
+        res.status(200).json({id: req.params.id})
+    }
 })
 
 module.exports = {getTareas, createTareas, updateTarea, deleteTarea}
