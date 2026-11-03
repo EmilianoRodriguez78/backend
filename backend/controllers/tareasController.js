@@ -14,7 +14,7 @@ const createTareas = asyncHandler (async (req, res) => {
     }
     const tarea = await Tarea.create({
         user:req.user.id,
-        descripcion: req.body.descrpicion
+        descripcion: req.body.descripcion
     })
 
     res.status(201).json(tarea)
