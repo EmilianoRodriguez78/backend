@@ -7,7 +7,7 @@ const {crearUser, loginUser, datosUser} = require('../controllers/usersControlle
 
 //endpoints publicos
 router.post('/login', loginUser)
-router.post('/register', crearUser)
+router.post('/', crearUser)
 
 //endpoint privado
 router.get('/datos', protect, datosUser)
