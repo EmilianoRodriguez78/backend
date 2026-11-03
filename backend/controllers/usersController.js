@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const asyncHandler = require('express-async-handler')
-const user = require('../models/userModel')
-const protect=require('../middleware/authMiddleware')
+const User = require('../models/userModel')
 
 const crearUser = asyncHandler(async(req, res) =>  {
     //desestructuramos el body
