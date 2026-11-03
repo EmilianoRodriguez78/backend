@@ -7,7 +7,7 @@ const getTareas = asyncHandler (async (req, res) => {
 })
 
 const createTareas = asyncHandler (async (req, res) => {
-    if (!req.body.descrpicion){
+    if (!req.body.descripcion){
         res.status(400)
         throw new Error("Debes teclear una descripcion")
 
